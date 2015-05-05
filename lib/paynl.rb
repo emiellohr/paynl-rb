@@ -11,6 +11,7 @@ require 'paynl/api/request/transaction_start_request'
 require 'paynl/api/request/transaction_info_request'
 require 'paynl/error_response'
 require 'paynl/exception'
+require 'paynl/issuer'
 require 'paynl/payment'
 
 module Paynl
