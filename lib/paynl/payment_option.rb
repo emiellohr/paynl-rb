@@ -1,5 +1,5 @@
 module Paynl
-  class Issuer
+  class PaymentOption
     attr_accessor :id, :name
 
     def self.list(token, service_id)
@@ -26,15 +26,19 @@ module Paynl
 
       result = Paynl::Api::TransactionGetServiceRequest.new(payment_attributes).perform
 
-      if result.countryOptionList.NL.paymentOptionList.item.is_a? Array
-        ideal = result.countryOptionList.NL.paymentOptionList.item.find {|item| item.name == "iDEAL"}
-      else
-        ideal = result.countryOptionList.NL.paymentOptionList.item
+      payment_options = []
+      result.countryOptionList.each do |country, values|
+        if values.paymentOptionList.item.is_a?(Array)
+          payment_options += values.paymentOptionList.item
+        else
+          payment_options << values.paymentOptionList.item
+        end
       end
-      ideal.paymentOptionSubList.item.map do |issuer|
+
+      payment_options.map do |payment_option|
         new(
-          :id => issuer.id,
-          :name => issuer.visibleName
+          :id => payment_option.id,
+          :name => payment_option.visibleName
         )
       end
     end
