@@ -2,7 +2,7 @@ module Paynl
   module Api
     class Request
 
-      API_VERSION   = 'v3'
+      API_VERSION   = 'v5'
       API_NAMESPACE = 'Transaction'
       API_OUTPUT    = 'xml'
       API_BASE_URI  = "https://rest-api.pay.nl/#{API_VERSION}/#{API_NAMESPACE}/"

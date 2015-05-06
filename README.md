@@ -1,6 +1,8 @@
 
   require 'paynl'
 
+  Paynl::Issuer.list(token, service_id)
+
   payment_attributes = {
     token: 'xxxxxxxxxxxxxxxxx',
     service_id: 'SL-xxxx-xxxx',

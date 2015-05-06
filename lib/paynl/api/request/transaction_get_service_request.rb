@@ -22,8 +22,8 @@ module Paynl
       end
 
       def clean(response)
-        if response.data? && response.data.countryOptionList?
-          response.data.countryOptionList
+        if response.data?
+          response.data
         end
       end
 
