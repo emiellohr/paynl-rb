@@ -2,12 +2,13 @@ module Paynl
   class PaymentOption
     attr_accessor :id, :name
 
-    def self.list(token, service_id)
-      @list ||= find_all_from_api(token, service_id)
+    def self.list(token, service_id, cached=true)
+      return @list if @list && cached
+      @list = find_all_from_api(token, service_id)
     end
 
-    def self.find(issuer_id)
-      list.select { |issuer| issuer.id.to_i == issuer_id.to_i }.first
+    def self.find(payment_option_id)
+      list.select { |issuer| issuer.id.to_i == payment_option_id.to_i }.first
     end
 
     def initialize(attributes = {})
