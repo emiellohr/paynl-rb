@@ -5,6 +5,7 @@ require 'crack/xml'
 require 'active_support'
 require 'active_support/core_ext/object/to_param'
 
+require 'paynl/api/callback'
 require 'paynl/api/request'
 require 'paynl/api/request/transaction_get_service_request'
 require 'paynl/api/request/transaction_start_request'
