@@ -16,10 +16,11 @@ module Paynl
       end
 
       def params
-        { token: @token,
-          serviceId: @service_id,
-          transactionId: @transaction_id,
-          entranceCode: @entrance_code }
+        params = { token: @token,
+              service_id: @service_id,
+              transaction_id: @transaction_id }
+        params[:entrance_code] = @entrance_code if @entrance_code
+        params
       end
 
       def clean(response)

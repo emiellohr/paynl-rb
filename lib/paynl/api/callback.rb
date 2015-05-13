@@ -63,7 +63,7 @@ module Paynl
         def params
           { token: @token,
             service_id: @service_id,
-            transaction_id: @transaction_id,
+            transaction_id: @transaction_id}
             entrance_code: @entrance_code }
         end
 
