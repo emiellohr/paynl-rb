@@ -17,9 +17,9 @@ module Paynl
 
       def params
         params = { token: @token,
-              service_id: @service_id,
-              transaction_id: @transaction_id }
-        params[:entrance_code] = @entrance_code if @entrance_code
+              serviceId: @service_id,
+              transactionId: @transaction_id }
+        params[:entranceCode] = @entrance_code if @entrance_code
         params
       end
 
