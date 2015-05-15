@@ -21,4 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'hashie'
   s.add_dependency 'crack'
   s.add_dependency 'activesupport'
+
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'webmock'
 end

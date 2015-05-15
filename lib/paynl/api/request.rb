@@ -15,8 +15,6 @@ module Paynl
 
         validate!
 
-        puts "..............#{base_uri + uri}"
-
         http_response = HTTPI.get(base_uri + uri)
         parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
