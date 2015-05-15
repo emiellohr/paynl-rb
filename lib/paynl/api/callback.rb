@@ -23,15 +23,15 @@ module Paynl
       end
 
       def success?
-        @raw_response.paymentDetails.state == '100'
+        response.paymentDetails.state == '100'
       end
 
       def expired?
-        @raw_response.paymentDetails.state == '-80'
+        response.paymentDetails.state == '-80'
       end
 
       def cancelled?
-        @raw_response.paymentDetails.state == '-90'
+        response.paymentDetails.state == '-90'
       end
 
       # def failure?
@@ -39,12 +39,16 @@ module Paynl
       # end
 
       def pending?
-        %w(20 25 50).include? @raw_response.paymentDetails.state
+        %w(20 25 50).include? response.paymentDetails.state
       end
 
       # def reversed?
       #   @status == 'Reversed'
       # end
+
+      def data
+        response
+      end
 
       private
 
