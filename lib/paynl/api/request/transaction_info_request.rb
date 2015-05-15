@@ -24,9 +24,8 @@ module Paynl
       end
 
       def clean(response)
-        if response.data?
-          response.data
-        end
+        # no clean needed
+        response
       end
 
       def validate!
