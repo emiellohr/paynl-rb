@@ -17,4 +17,8 @@ require 'paynl/issuer'
 require 'paynl/payment'
 
 module Paynl
+  class << self
+    def test
+    end
+  end
 end
