@@ -11,7 +11,7 @@ describe Paynl::Api::AllianceAddInvoice do
   describe "add invoice" do
 
     it "should raise exception Invalid ID merchantId" do
-      stub_request(:get, "https://rest-api.pay.nl/v2/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123&token=1234token5678").
+      stub_request(:get, "https://rest-api.pay.nl/v2/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123&token=1234token5678").
         to_return(:status => 200, :body => ERROR_CALLBACK_XML, :headers => {})
 
       expect {
@@ -19,6 +19,7 @@ describe Paynl::Api::AllianceAddInvoice do
           token = @token,
           service_id = @service_id,
           merchant_id = @merchant_id,
+          invoice_id = 'Invoice123',
           amount = 1000,
           description = 'Dit is een test',
           invoice_url = 'https://www.avayo.nl/invoice'
@@ -27,7 +28,7 @@ describe Paynl::Api::AllianceAddInvoice do
     end
 
     it "should return a referenceId on successfull calls" do
-      stub_request(:get, "https://rest-api.pay.nl/v2/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123&token=1234token5678").
+      stub_request(:get, "https://rest-api.pay.nl/v2/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123&token=1234token5678").
         to_return(:status => 200, :body => CALLBACK_XML, :headers => {})
 
       expect(
@@ -35,6 +36,7 @@ describe Paynl::Api::AllianceAddInvoice do
           token = @token,
           service_id = @service_id,
           merchant_id = @merchant_id,
+          invoice_id = 'Invoice123',
           amount = 1000,
           description = 'Dit is een test',
           invoice_url = 'https://www.avayo.nl/invoice'

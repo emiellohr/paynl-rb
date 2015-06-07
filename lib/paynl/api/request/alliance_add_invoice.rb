@@ -4,7 +4,7 @@ module Paynl
 
       attr_accessor :merchant_id, :invoice_id, :amount, :description, :invoice_url
 
-      def initialize(token, service_id, merchant_id, amount, description, invoice_url)
+      def initialize(token, service_id, merchant_id, invoice_id, amount, description, invoice_url)
         @token = token
         @service_id = service_id
         @merchant_id = merchant_id
