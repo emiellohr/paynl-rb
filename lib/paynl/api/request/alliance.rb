@@ -2,15 +2,12 @@ module Paynl
   module Api
     class Alliance < Request
 
-      API_VERSION   = 'v2'
-      API_NAMESPACE = 'Alliance'
-
       def api_version
-        API_VERSION
+        'v2'
       end
 
       def api_namespace
-        API_NAMESPACE
+        'Alliance'
       end
 
     end

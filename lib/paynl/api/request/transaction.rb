@@ -2,15 +2,12 @@ module Paynl
   module Api
     class Transaction < Request
 
-      API_VERSION   = 'v5'
-      API_NAMESPACE = 'Transaction'
-
       def api_version
-        API_VERSION
+        'v5'
       end
 
       def api_namespace
-        API_NAMESPACE
+        'Transaction'
       end
 
     end
