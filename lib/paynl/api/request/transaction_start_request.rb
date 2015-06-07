@@ -1,6 +1,6 @@
 module Paynl
   module Api
-    class TransactionStartRequest < Request
+    class TransactionStartRequest < Transaction
 
       attr_accessor :payment
 

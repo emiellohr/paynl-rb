@@ -2,10 +2,7 @@ module Paynl
   module Api
     class Request
 
-      API_VERSION   = 'v5'
-      API_NAMESPACE = 'Transaction'
       API_OUTPUT    = 'xml'
-      API_BASE_URI  = "https://rest-api.pay.nl/#{API_VERSION}/#{API_NAMESPACE}/"
 
       attr_accessor :token,
                     :service_id
@@ -54,8 +51,7 @@ module Paynl
       end
 
       def base_uri
-        # Sisow.configuration.base_uri || BASE_URI
-        API_BASE_URI
+        "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end

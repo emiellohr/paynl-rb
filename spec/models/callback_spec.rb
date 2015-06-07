@@ -43,7 +43,6 @@ describe Paynl::Api::Callback do
 
   def prepare_and_call_callback(state)
       stub_request(:get, "https://rest-api.pay.nl/v5/Transaction/info/xml/?serviceId=SL-123-123&token=1234token5678&transactionId=trx-123").
-        with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'HTTPClient/1.0 (2.6.0.1, ruby 2.1.3 (2014-09-19))'}).
         to_return(:status => 200, :body => CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
 
     @callback = Paynl::Api::Callback.new(

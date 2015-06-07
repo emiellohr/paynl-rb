@@ -1,6 +1,6 @@
 module Paynl
   module Api
-    class TransactionGetServiceRequest < Request
+    class TransactionGetServiceRequest < Transaction
 
       attr_accessor :payment_method_id
 

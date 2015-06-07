@@ -1,6 +1,6 @@
 module Paynl
   module Api
-    class TransactionInfoRequest < Request
+    class TransactionInfoRequest < Transaction
 
       attr_accessor :transaction_id,
                     :entrance_code
