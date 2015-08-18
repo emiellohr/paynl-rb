@@ -15,10 +15,11 @@ module Paynl
                     :transaction_id,
                     :entrance_code
 
-      def initialize(attributes = {})
+      def initialize(attributes = {}, remote_ip=nil)
         attributes.each do |k,v|
           send("#{k}=", v)
         end
+        @remote_ip = remote_ip
       end
 
       def valid?
@@ -27,7 +28,7 @@ module Paynl
 
       def validate!
         return true if valid_callback == true
-        raise Paynl::Exception, "This callback is forged" and return if valid_callback == false
+        raise Paynl::Exception, "This callback is forged"
       end
 
       def success?
@@ -61,11 +62,7 @@ module Paynl
       private
 
         def valid_callback
-          true
-          # string = [ @transaction_id, @entrance_code, @status, Sisow.configuration.merchant_id, Sisow.configuration.merchant_key ].join
-          # calculated_sha1 = Digest::SHA1.hexdigest(string)
-
-          # calculated_sha1 == @sha1
+          @remote_ip.nil? ? true : VALID_IPS.include?(@remote_ip)
         end
 
         def response

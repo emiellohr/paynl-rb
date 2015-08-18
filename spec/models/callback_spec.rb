@@ -41,15 +41,28 @@ describe Paynl::Api::Callback do
 
   end
 
-  def prepare_and_call_callback(state)
-      stub_request(:get, "https://rest-api.pay.nl/v5/Transaction/info/xml/?serviceId=SL-123-123&token=1234token5678&transactionId=trx-123").
-        to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
+  describe "check remote_ip" do
 
-    @callback = Paynl::Api::Callback.new(
+    it "should be success with valid remote_ip" do
+      prepare_and_call_callback('100', '85.158.206.17')
+      expect{@callback.validate!}.not_to raise_error
+    end
+
+    it "should raise exception with invalid remote_ip" do
+      prepare_and_call_callback('100', '1.2.3.4')
+      expect{@callback.validate!}.to raise_error(Paynl::Exception)
+    end
+
+  end
+
+  def prepare_and_call_callback(state,remote_ip=nil)
+    stub_request(:get, "https://rest-api.pay.nl/v5/Transaction/info/xml/?serviceId=SL-123-123&token=1234token5678&transactionId=trx-123").
+      to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
+    params = {
       :token => @token,
       :service_id => @service_id,
-      :transaction_id => @transaction_id
-    )
+      :transaction_id => @transaction_id }
+    @callback = Paynl::Api::Callback.new(params, remote_ip)
   end
 
 end
