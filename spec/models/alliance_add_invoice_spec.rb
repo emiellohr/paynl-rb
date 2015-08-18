@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Paynl::Api::AllianceAddInvoice do
 
+
   before :each do
     @token  = '1234token5678'
     @service_id  = 'SL-123-123'
@@ -12,7 +13,7 @@ describe Paynl::Api::AllianceAddInvoice do
 
     it "should raise exception Invalid ID merchantId" do
       stub_request(:get, "https://rest-api.pay.nl/v2/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123&token=1234token5678").
-        to_return(:status => 200, :body => ERROR_CALLBACK_XML, :headers => {})
+        to_return(:status => 200, :body => Paynl::Api::AllianceAddInvoice::ERROR_CALLBACK_XML, :headers => {})
 
       expect {
         Paynl::Api::AllianceAddInvoice.new(
@@ -29,7 +30,7 @@ describe Paynl::Api::AllianceAddInvoice do
 
     it "should return a referenceId on successfull calls" do
       stub_request(:get, "https://rest-api.pay.nl/v2/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123&token=1234token5678").
-        to_return(:status => 200, :body => CALLBACK_XML, :headers => {})
+        to_return(:status => 200, :body => Paynl::Api::AllianceAddInvoice::CALLBACK_XML, :headers => {})
 
       expect(
         Paynl::Api::AllianceAddInvoice.new(
@@ -45,10 +46,10 @@ describe Paynl::Api::AllianceAddInvoice do
     end
 
   end
+
 end
 
-
-ERROR_CALLBACK_XML=<<-EOF
+Paynl::Api::AllianceAddInvoice::ERROR_CALLBACK_XML=<<-EOF
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data>
   <request>
@@ -60,7 +61,7 @@ ERROR_CALLBACK_XML=<<-EOF
 </data>
 EOF
 
-CALLBACK_XML=<<-EOF
+Paynl::Api::AllianceAddInvoice::CALLBACK_XML=<<-EOF
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data>
   <request>
@@ -71,3 +72,4 @@ CALLBACK_XML=<<-EOF
   <referenceId>12345</referenceId>
 </data>
 EOF
+

@@ -43,7 +43,7 @@ describe Paynl::Api::Callback do
 
   def prepare_and_call_callback(state)
       stub_request(:get, "https://rest-api.pay.nl/v5/Transaction/info/xml/?serviceId=SL-123-123&token=1234token5678&transactionId=trx-123").
-        to_return(:status => 200, :body => CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
+        to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
 
     @callback = Paynl::Api::Callback.new(
       :token => @token,
@@ -51,11 +51,10 @@ describe Paynl::Api::Callback do
       :transaction_id => @transaction_id
     )
   end
+
 end
 
-
-
-CALLBACK_XML=<<-EOF
+Paynl::Api::Callback::CALLBACK_XML=<<-EOF
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data>
   <request>
@@ -171,3 +170,4 @@ CALLBACK_XML=<<-EOF
   </stornoDetails>
 </data>
 EOF
+

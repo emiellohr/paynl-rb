@@ -11,6 +11,8 @@ module Paynl
         end
       end
 
+      private
+
       def method
         'getService'
       end

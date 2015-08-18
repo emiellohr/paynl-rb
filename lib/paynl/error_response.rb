@@ -2,9 +2,14 @@ module Paynl
   class ErrorResponse
     attr_accessor :code, :message
 
-    def initialize(response)
-      @code    = response.data.request.errorId
-      @message = response.data.request.errorMessage
+    def initialize(response=nil, code=nil, message=nil)
+      if response
+        @code    = response.data.request.errorId
+        @message = response.data.request.errorMessage
+      else
+        @code = code
+        @message = message
+      end
     end
 
     def message

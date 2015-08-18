@@ -13,6 +13,7 @@ module Paynl
         validate!
 
         http_response = HTTPI.get(base_uri + uri)
+
         parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
 
@@ -21,12 +22,12 @@ module Paynl
         clean(response)
       end
 
+      private
+
       def params;     raise 'Implement me in a subclass'; end
       def method;     raise 'Implement me in a subclass'; end
       def clean;      raise 'Implement me in a subclass'; end
       def validate!;  raise 'Implement me in a subclass'; end
-
-      private
 
       def can_perform?
         !(params[:token].nil? || params[:serviceId].nil?)

@@ -8,6 +8,8 @@ module Paynl
         @payment = payment
       end
 
+      private
+
       def method
         'start'
       end
