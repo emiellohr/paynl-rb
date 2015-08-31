@@ -20,12 +20,12 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency 'httpi'
-  s.add_dependency 'httpclient'
-  s.add_dependency 'hashie'
-  s.add_dependency 'crack'
-  s.add_dependency 'activesupport'
+  s.add_runtime_dependency 'httpi', '~> 0'
+  s.add_runtime_dependency 'httpclient', '~> 0'
+  s.add_runtime_dependency 'hashie', '~> 0'
+  s.add_runtime_dependency 'crack', '~> 0'
+  s.add_runtime_dependency 'activesupport', '~> 0'
 
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'webmock'
+  s.add_development_dependency 'rspec', '~> 0'
+  s.add_development_dependency 'webmock', '~> 0'
 end
