@@ -6,23 +6,9 @@ describe Paynl::Api::StatisticsSessions do
     @token  = '1234token5678'
   end
 
-
-  # require 'paynl-rb'
-  # token = 'b93f7c49e8af6963c35fbe847d793b7c81a46b8f'
-  # service_id = 'SL-2723-2400'
-  # start_date = '2015-01-01'
-  # end_date = '2015-12-31'
-  # filter_types = ['payment_session_id']
-  # filter_operators = ['eq']
-  # filter_values = ['550303978']
-
-  # result = Paynl::Api::StatisticsSessions.new(token, start_date, end_date, filter_types, filter_operators, filter_values).perform
-
-
-
   describe "sessions" do
 
-    it "should raise exception Invalid ID merchantId" do
+    it "should raise exception when called with invalid filter field" do
       stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&filterType%5B%5D=invalid-input&startDate=2015-01-01&token=1234token5678").
         to_return(:status => 200, :body => Paynl::Api::StatisticsSessions::ERROR_CALLBACK_XML, :headers => {})
 

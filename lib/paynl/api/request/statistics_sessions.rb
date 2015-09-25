@@ -2,8 +2,6 @@ module Paynl
   module Api
     class StatisticsSessions < Statistics
 
-      # attr_accessor :start_date, :end_date, :filter_types, :filter_operators, :filter_values
-
       def initialize(token, start_date, end_date, filter_types=[], filter_operators=[], filter_values=[])
         @token = token
         @start_date = start_date
