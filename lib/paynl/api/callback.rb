@@ -43,9 +43,9 @@ module Paynl
         response.paymentDetails.state == '-90'
       end
 
-      # def failure?
-      #   @status == 'Failure'
-      # end
+      def failure?
+        response.paymentDetails.state == '-60'
+      end
 
       def pending?
         %w(20 25 50).include? response.paymentDetails.state
