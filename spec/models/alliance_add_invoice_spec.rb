@@ -23,7 +23,7 @@ describe Paynl::Api::AllianceAddInvoice do
           invoice_id = 'Invoice123',
           amount = 1000,
           description = 'Dit is een test',
-          invoice_url = 'https://www.avayo.nl/invoice'
+          { :invoice_url => 'https://www.avayo.nl/invoice' }
           ).perform
       }.to raise_error(Paynl::Exception, "An error occurred: 404. Invalid ID merchantId")
     end
@@ -40,7 +40,7 @@ describe Paynl::Api::AllianceAddInvoice do
           invoice_id = 'Invoice123',
           amount = 1000,
           description = 'Dit is een test',
-          invoice_url = 'https://www.avayo.nl/invoice'
+          { :invoice_url => 'https://www.avayo.nl/invoice' }
           ).perform
       ).to eql '12345'
     end

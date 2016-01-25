@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paynl-rb (0.0.6)
+    paynl-rb (0.1.0)
       activesupport
       crack
       hashie
@@ -11,7 +11,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (4.2.4)
+    activesupport (4.2.5)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -21,13 +21,13 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
-    hashie (3.4.2)
-    httpclient (2.6.0.1)
+    hashie (3.4.3)
+    httpclient (2.7.1)
     httpi (2.4.1)
       rack
     i18n (0.7.0)
     json (1.8.3)
-    minitest (5.8.1)
+    minitest (5.8.4)
     rack (1.6.4)
     rake (10.4.2)
     rspec (3.1.0)
@@ -60,4 +60,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
