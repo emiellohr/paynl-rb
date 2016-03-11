@@ -27,9 +27,10 @@ module Paynl
             orderExchangeUrl: @payment.callback_url,
             description: @payment.description
             },
-          statsData: {},
-          enduser: {},
-          saleData: {}
+          statsData: @payment.stats_data,
+          enduser: @payment.end_user,
+          saleData: @payment.sale_data,
+          testMode: @payment.test_mode
         }
       end
 

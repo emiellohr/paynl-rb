@@ -9,9 +9,18 @@ module Paynl
                   :return_url,
                   :callback_url,
                   :payment_method_id,
-                  :issuer_id
+                  :issuer_id,
+                  :end_user,
+                  :sale_data,
+                  :stats_data,
+                  :test_mode
 
     def initialize(attributes = {})
+      test_mode = 1
+      enduser = {}
+      sale_data = {}
+      stats_data = {}
+
       attributes.each do |k,v|
         send("#{k}=", v)
       end
