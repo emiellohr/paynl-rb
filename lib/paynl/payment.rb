@@ -17,7 +17,7 @@ module Paynl
 
     def initialize(attributes = {})
       @test_mode = 1
-      @enduser = {}
+      @end_user = {}
       @sale_data = {}
       @stats_data = {}
 
