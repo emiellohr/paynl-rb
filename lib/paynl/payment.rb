@@ -16,10 +16,10 @@ module Paynl
                   :test_mode
 
     def initialize(attributes = {})
-      test_mode = 1
-      enduser = {}
-      sale_data = {}
-      stats_data = {}
+      @test_mode = 1
+      @enduser = {}
+      @sale_data = {}
+      @stats_data = {}
 
       attributes.each do |k,v|
         send("#{k}=", v)
