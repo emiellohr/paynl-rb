@@ -1,7 +1,6 @@
 module Paynl
   module Api
     class TransactionStartRequest < Transaction
-
       attr_accessor :payment
 
       def initialize(payment)
@@ -32,6 +31,23 @@ module Paynl
           saleData: @payment.sale_data,
           testMode: @payment.test_mode
         }
+        sweep(params)
+      end
+
+      def sweep(params)
+        params.each do |key, value|
+          params.delete(key) if value.nil? 
+          if value.is_a?(Hash)
+            if value.empty?
+              params.delete(key)
+            else
+              value.each do |key, nested_value|
+                value.delete(key) if nested_value.nil?
+              end
+            end
+          end
+        end
+        params
       end
 
       def clean(response)
