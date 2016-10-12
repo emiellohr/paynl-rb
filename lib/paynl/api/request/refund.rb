@@ -1,7 +1,6 @@
 module Paynl
   module Api
     class Refund < Request
-
       def api_version
         'v2'
       end
@@ -9,7 +8,6 @@ module Paynl
       def api_namespace
         'Refund'
       end
-
     end
   end
 end
