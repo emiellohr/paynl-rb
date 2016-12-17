@@ -1,13 +1,13 @@
 module Paynl
   module Api
-    class Transaction < Request
+    class DirectDebit < Request
 
       def api_version
-        'v6'
+        'v3'
       end
 
       def api_namespace
-        'Transaction'
+        'DirectDebit'
       end
 
     end

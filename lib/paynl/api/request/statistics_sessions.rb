@@ -1,33 +1,24 @@
 module Paynl
   module Api
     class StatisticsSessions < Statistics
+      MANDATORY_PARAMETERS = [:startDate, :endDate]
+      OPTIONAL_PARAMETERS = [:filterType, :filterOperator, :filterValue, :staffels, :page,
+        :pageAmount, :currencyId, :separateSwitchesFromParents]
 
-      def initialize(token, start_date, end_date, filter_types=[], filter_operators=[], filter_values=[])
-        @token = token
-        @start_date = start_date
-        @end_date = end_date
-        @filter_types = filter_types
-        @filter_operators = filter_operators
-        @filter_values = filter_values
+      def initialize(startDate, endDate, options={})
+        @params = {
+          startDate: startDate,
+          endDate: endDate
+        }
+        super(options)
+      end
+
       end
 
       private
 
-      def can_perform?
-        !params[:token].nil?
-      end
-
       def method
         'sessions'
-      end
-
-      def params
-        { token: @token,
-          startDate: @start_date,
-          endDate: @end_date,
-          filterType: @filter_types,
-          filterOperator: @filter_operators,
-          filterValue: @filter_values }
       end
 
       def error?(response)
@@ -43,10 +34,6 @@ module Paynl
         if response.data.arrStatsData?
           response.data.arrStatsData
         end
-      end
-
-      def validate!
-        true
       end
 
     end

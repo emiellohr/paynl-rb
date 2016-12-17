@@ -1,19 +1,20 @@
 module Paynl
   module Api
-    class RefundTransaction < Refund
-      MANDATORY_PARAMETERS = [:serviceId, :transactionId]
-      OPTIONAL_PARAMETERS = [:amount, :description, :processDate]
+    class TransactionInfo < Transaction
+      MANDATORY_PARAMETERS = [:transactionId]
+      OPTIONAL_PARAMETERS = [:entranceCode]
 
-      def initialize(serviceId, transactionId, options={})
+      def initialize(transactionId, options={})
         @params = {
-          serviceId: serviceId,
           transactionId: transactionId
         }
         super(options)
       end
 
+      private
+
       def method
-        'transaction'
+        'info'
       end
 
       def clean(response)

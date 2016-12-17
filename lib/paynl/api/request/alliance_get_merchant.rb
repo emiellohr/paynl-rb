@@ -1,29 +1,18 @@
 module Paynl
   module Api
     class AllianceGetMerchant < Alliance
+      MANDATORY_PARAMTERS = [:merchantId]
 
-      def initialize(token, merchant_id)
-        @params = {
-          token: token,
-          serviceId: 'dummy',
-          merchantId: merchant_id,
-        }
+      def initialize(merchantId)
+        @params = { merchantId: merchantId }
       end
 
       def method
         'getMerchant'
       end
 
-      def params
-        @params
-      end
-
       def clean(response)
         response.data
-      end
-
-      def validate!
-        !@params[:merchantId].nil?
       end
 
     end
