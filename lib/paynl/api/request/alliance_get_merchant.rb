@@ -1,7 +1,7 @@
 module Paynl
   module Api
     class AllianceGetMerchant < Alliance
-      MANDATORY_PARAMTERS = [:merchantId]
+      MANDATORY_PARAMETERS = [:merchantId]
 
       def initialize(merchantId)
         @params = { merchantId: merchantId }

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Paynl::Api::Callback do
 
   before :each do
-    @token  = '1234token5678'
     @service_id  = 'SL-123-123'
     @transaction_id = 'trx-123'
+    Paynl::Config.apiToken = '1234token5678'
   end
 
   describe "transaction status" do
@@ -56,7 +56,7 @@ describe Paynl::Api::Callback do
   end
 
   def prepare_and_call_callback(state,remote_ip=nil)
-    stub_request(:get, "https://rest-api.pay.nl/v5/Transaction/info/xml/?serviceId=SL-123-123&token=1234token5678&transactionId=trx-123").
+    stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v6/Transaction/info/xml/?transactionId=trx-123").
       to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
     params = {
       :token => @token,

@@ -79,15 +79,11 @@ module Paynl
         @raw_response
       end
 
-      def params
-        { token: @token,
-          service_id: @service_id,
-          transaction_id: @transaction_id,
-          entrance_code: @entrance_code }
-      end
-
       def request
-        @request ||= Paynl::Api::TransactionInfoRequest.new(params)
+        @request ||= Paynl::Api::TransactionInfo.new(
+          @transaction_id, {
+            entranceCode: @entrance_code
+          })
       end
     end
   end

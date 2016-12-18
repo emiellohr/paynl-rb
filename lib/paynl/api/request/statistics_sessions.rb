@@ -13,8 +13,6 @@ module Paynl
         super(options)
       end
 
-      end
-
       private
 
       def method

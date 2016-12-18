@@ -1,3 +1,5 @@
+require 'pry'
+
 module Paynl
   module Api
     class Request
@@ -10,7 +12,7 @@ module Paynl
 
       def initialize(options={})
         options.each do |key, value|
-          next if OPTIONAL_PARAMETERS.exclude?(key) || value.blank?
+          next if !self.class::OPTIONAL_PARAMETERS.include?(key) || value.nil?
           @params[key] = value
         end
       end
@@ -37,12 +39,12 @@ module Paynl
       def validate!;  raise 'Implement me in a subclass'; end
 
       def can_perform?
-        Paynl::Config.apiToken.present?
+        !Paynl::Config.apiToken.empty?
       end
 
       def validate!
-        result = MANDATORY_PARAMETERS.all? {|parameter| @params[parameter].present?}
-        raise Paynl::Exception, 'Mandatory parameter missing.' unless result
+        result = self.class::MANDATORY_PARAMETERS.all? {|parameter| !@params[parameter].nil?}
+        raise Paynl::Exception, "#{self.class.name}: Mandatory parameter missing. Excepted: #{self.class::MANDATORY_PARAMETERS}, Received: #{@params}" unless result
       end
 
       def uri

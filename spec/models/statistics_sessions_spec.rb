@@ -3,35 +3,33 @@ require 'spec_helper'
 describe Paynl::Api::StatisticsSessions do
 
   before :each do
-    @token  = '1234token5678'
+    Paynl::Config.apiToken = '1234token5678'
   end
 
   describe "sessions" do
 
     it "should raise exception when called with invalid filter field" do
-      stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&filterType%5B%5D=invalid-input&startDate=2015-01-01&token=1234token5678").
+      stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
         to_return(:status => 200, :body => Paynl::Api::StatisticsSessions::ERROR_CALLBACK_XML, :headers => {})
 
       expect {
         Paynl::Api::StatisticsSessions.new(
-          token = @token,
-          start_date = '2015-01-01',
-          end_date = '2015-12-31',
-          filter_types = [['invalid-input']]).perform
+          '2015-01-01',
+          '2015-12-31',
+          { filter_types: ['invalid-input'] }).perform
       }.to raise_error(Paynl::Exception, "An error occurred: N/A. Parameter 'filterType' is invalid: Invalid filter field")
     end
 
     it "should return statistics on successfull calls" do
-      stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&filterOperator%5B%5D=eq&filterType%5B%5D=payment_session_id&filterValue%5B%5D=550303978&startDate=2015-01-01&token=1234token5678").
+      stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
         to_return(:status => 200, :body => Paynl::Api::StatisticsSessions::CALLBACK_XML, :headers => {})
 
       result = Paynl::Api::StatisticsSessions.new(
-        token = @token,
-        start_date = '2015-01-01',
-        end_date = '2015-12-31',
-        filter_types = ['payment_session_id'],
-        filter_operators = ['eq'],
-        filter_values = ['550303978'],
+        '2015-01-01',
+        '2015-12-31',
+        { filter_types: ['payment_session_id'],
+          filter_operators: ['eq'],
+          filter_values: ['550303978'] },
         ).perform
 
       expect(result.item.size).to eql 2

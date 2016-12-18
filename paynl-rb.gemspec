@@ -26,6 +26,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'crack'
   s.add_runtime_dependency 'activesupport'
 
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'webmock'
 end
