@@ -1,6 +1,6 @@
 module Paynl
   module Api
-    class DebitAdd < DirectDebit
+    class DirectDebitDebitAdd < DirectDebit
       MANDATORY_PARAMETERS = [:serviceId, :amount, :bankaccountHolder, :bankaccountNumber]
       OPTIONAL_PARAMETERS = [:bankaccountBic, :processDate, :description, :ipAddress,
         :email, :promotorId, :tool, :info, :object, :extra1, :extra2, :extra3, :currency,
@@ -14,6 +14,12 @@ module Paynl
           bankaccountNumber: bankaccountNumber
         }
         super(options)
+      end
+
+      private
+
+      def error?(response)
+        !!response.data.request.errorId
       end
 
       def method
