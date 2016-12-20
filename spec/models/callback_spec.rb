@@ -59,9 +59,8 @@ describe Paynl::Api::Callback do
     stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v6/Transaction/info/xml/?transactionId=trx-123").
       to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
     params = {
-      :token => @token,
-      :service_id => @service_id,
-      :transaction_id => @transaction_id }
+      service_id: @service_id,
+      transaction_id: @transaction_id }
     @callback = Paynl::Api::Callback.new(params, remote_ip)
   end
 
