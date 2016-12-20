@@ -35,7 +35,7 @@ Paynl::Exception
 To receive a list of supported payment methods for a service id you can use:
 
 ```ruby
-payment_methods = Paynl::PaymentOption.list('SL-6369-1360', false)
+payment_methods = Paynl::PaymentOption.list('SL-1234-0000', false)
 puts issuers.first.inspect
 [#<Paynl::PaymentOption:0x007f926c488e00 @id="10", @name="iDEAL">,...
 ```
