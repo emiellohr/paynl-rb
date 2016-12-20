@@ -81,9 +81,9 @@ module Paynl
 
       def request
         @request ||= Paynl::Api::TransactionInfo.new(
-          @transaction_id, {
-            entranceCode: @entrance_code
-          })
+          @transaction_id,
+          entranceCode: @entrance_code
+        )
       end
     end
   end

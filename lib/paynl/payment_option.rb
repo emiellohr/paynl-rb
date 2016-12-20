@@ -2,7 +2,7 @@ module Paynl
   class PaymentOption
     attr_accessor :id, :name
 
-    def self.list(token, service_id, cached=true)
+    def self.list(service_id, cached=true)
       return @list if @list && cached
       @list = find_all_from_api(token, service_id)
     end
@@ -18,14 +18,12 @@ module Paynl
 
     private
 
-    def self.find_all_from_api(token, service_id)
+    def self.find_all_from_api(service_id)
 
-      payment_attributes = {
-        token: token,
-        service_id: service_id,
-        payment_method_id: 2}
-
-      result = Paynl::Api::TransactionGetServiceRequest.new(payment_attributes).perform
+      result = Paynl::Api::TransactionGetService.new(
+        Paynl::Config.apiToken,
+        service_id,
+        paymentMethodId: 2).perform
 
       payment_options = []
       result.countryOptionList.each do |country, values|
