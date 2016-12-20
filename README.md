@@ -135,6 +135,8 @@ payment_status.pending?
 
 ## Usage Refund
 
+### Transaction
+
 ```ruby
 response = Paynl::Api::RefundTransaction.new(
   'SL-1234-0000',     # Service id
@@ -145,6 +147,8 @@ refund_id = response.refundId
 ```
 
 ## Usage Instore payment
+
+### Payment
 
 ```ruby
 # Start payment transaction
@@ -158,7 +162,9 @@ instore_payment = Paynl::Api::InstorePayment.new(
 result = instore_payment.perform
 ```
 
-## Usage StatisticsSessions
+## Usage Statistics
+
+### Sessions
 
 ```ruby
 request = Paynl::Api::StatisticsSessions.new(
@@ -183,13 +189,29 @@ merchant_info = Paynl::Api::AllianceGetMerchant.new(
 
 ```ruby
 paynl_invoice_id = Paynl::Api::AllianceAddInvoice.new(
-  'SL-6369-1360',
+  'SL-1234-0000',
   merchant_id,
   'invoice id',
   amount_cents,
   "invoice description",
   invoiceUrl: url,
   makeYesterday: 'true').perform
+```
+
+## Usage DirectDebit
+
+### debitAdd
+
+```ruby
+response = Paynl::Api::DirectDebitDebitAdd.new(
+  'SL-1234-0000',
+  amount_cents,
+  bankaccountHolder,
+  bankaccountNumber,
+  { optional arguments.... } ).perform
+
+# respose.result will hold the mandateId for the new order. 
+respose.result 
 ```
 
 
