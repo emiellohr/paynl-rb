@@ -1,7 +1,8 @@
+[![Build Status](https://travis-ci.org/emiellohr/paynl-rb.svg?branch=master)](https://travis-ci.org/emiellohr/paynl-rb)
 
   require 'paynl'
 
-  Paynl::Issuer.list(token, service_id)
+  Paynl::Issuer.list(service_id)
 
   payment_attributes = {
     token: 'xxxxxxxxxxxxxxxxx',

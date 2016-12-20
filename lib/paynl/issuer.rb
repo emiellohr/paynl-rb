@@ -2,8 +2,8 @@ module Paynl
   class Issuer
     attr_accessor :id, :name
 
-    def self.list(token, service_id)
-      @list ||= find_all_from_api(token, service_id)
+    def self.list(service_id)
+      @list ||= find_all_from_api(service_id)
     end
 
     def self.find(issuer_id)
@@ -17,14 +17,12 @@ module Paynl
 
     private
 
-    def self.find_all_from_api(token, service_id)
+    def self.find_all_from_api(service_id)
 
-      payment_attributes = {
-        token: token,
-        service_id: service_id,
-        payment_method_id: 2}
-
-      result = Paynl::Api::TransactionGetServiceRequest.new(payment_attributes).perform
+      result = Paynl::Api::TransactionGetService.new(
+        Paynl::Config.apiToken,
+        service_id,
+        paymentMethodId: 2).perform
 
       if result.countryOptionList.NL.paymentOptionList.item.is_a? Array
         ideal = result.countryOptionList.NL.paymentOptionList.item.find {|item| item.name == "iDEAL"}
