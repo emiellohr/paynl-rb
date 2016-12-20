@@ -20,7 +20,6 @@ module Paynl
     def self.find_all_from_api(service_id)
 
       result = Paynl::Api::TransactionGetService.new(
-        Paynl::Config.apiToken,
         service_id,
         paymentMethodId: 2).perform
 

@@ -4,7 +4,7 @@ module Paynl
 
     def self.list(service_id, cached=true)
       return @list if @list && cached
-      @list = find_all_from_api(token, service_id)
+      @list = find_all_from_api(service_id)
     end
 
     def self.find(payment_option_id)
@@ -21,7 +21,6 @@ module Paynl
     def self.find_all_from_api(service_id)
 
       result = Paynl::Api::TransactionGetService.new(
-        Paynl::Config.apiToken,
         service_id,
         paymentMethodId: 2).perform
 

@@ -16,8 +16,7 @@ module Paynl
           '172.16.2.144', '10.35.37.4'
         ]
 
-      attr_accessor :token,
-                    :service_id,
+      attr_accessor :service_id,
                     :transaction_id,
                     :entrance_code
 
