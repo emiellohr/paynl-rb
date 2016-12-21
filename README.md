@@ -5,6 +5,10 @@ This gem provides an easy way of using the Pay.nl API for Ruby. It supports only
 
 [![Build Status](https://travis-ci.org/emiellohr/paynl-rb.svg?branch=master)](https://travis-ci.org/emiellohr/paynl-rb)
 
+## Documentation
+For more background info about parameters and responses, please take a look at:
+https://docs.pay.nl/docpanel/api
+
 ## Installation
 
 To install Resque, add the gem to your Gemfile:
