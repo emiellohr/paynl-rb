@@ -14,7 +14,6 @@ module Paynl
       def clean(response)
         response.data
       end
-
     end
   end
 end
