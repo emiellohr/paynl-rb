@@ -204,7 +204,7 @@ paynl_invoice_id = Paynl::Api::AllianceAddInvoice.new(
 
 ## Usage DirectDebit
 
-### debitAdd
+### DebitAdd
 
 ```ruby
 response = Paynl::Api::DirectDebitDebitAdd.new(
@@ -218,7 +218,7 @@ response = Paynl::Api::DirectDebitDebitAdd.new(
 respose.result
 ```
 
-### info
+### Info
 
 ```ruby
 response = Paynl::Api::DirectDebitInfo.new(mandateId, { optional referenceId... }).perform
