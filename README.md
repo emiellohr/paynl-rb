@@ -22,7 +22,7 @@ Then run `bundle`. If you're not using Bundler, just `gem install paynl-rb`.
 
 ## Initialization
 
-To get started you should initialize the gem by setting your API token. 
+To get started you should initialize the gem by setting your API token.
 
 ```ruby
 Paynl::Config.apiToken = '1234token5678'
@@ -76,7 +76,7 @@ payment_url = payment.payment_url
 @payment.transaction_id
 ```
 
-After the payment_url method is called, the transaction_id is assigned. 
+After the payment_url method is called, the transaction_id is assigned.
 This id can be used at a later stage to request the actual payment status.
 So save the transaction_id and redirect the browser to the payment_url.
 
@@ -91,7 +91,7 @@ callback = Paynl::Api::Callback.new({
   }, request.remote_ip)               # If remote_ip is set, it will be compared to the list of ip's of Pay.nl servers.
 if callback.valid?
     if callback.success?
-      # purchase paid, compare order amout with params[:amount] 
+      # purchase paid, compare order amout with params[:amount]
       # handle paid
     elsif callback.cancelled?
       # handle cancelled
@@ -173,7 +173,7 @@ result = instore_payment.perform
 ```ruby
 request = Paynl::Api::StatisticsSessions.new(
   start_date,       # Format .strftime('%Y-%m-%d')
-  end_date,         # Format .strftime('%Y-%m-%d') 
+  end_date,         # Format .strftime('%Y-%m-%d')
   filterType: filter_types,
   filterOperator: filter_operators,
   filterValue: filter_values)
@@ -214,8 +214,18 @@ response = Paynl::Api::DirectDebitDebitAdd.new(
   bankaccountNumber,
   { optional arguments.... } ).perform
 
-# respose.result will hold the mandateId for the new order. 
-respose.result 
+# respose.result will hold the mandateId for the new order.
+respose.result
 ```
+
+### info
+
+```ruby
+response = Paynl::Api::DirectDebitInfo.new(mandateId, { optional referenceId... }).perform
+
+# respose.mandate will hold the mandate information.
+# respose.directDebit will hold the directDebit information.
+```
+
 
 
