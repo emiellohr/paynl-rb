@@ -1,5 +1,3 @@
-require 'pry'
-
 module Paynl
   module Api
     class Request
