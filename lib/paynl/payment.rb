@@ -14,15 +14,15 @@ module Paynl
                   :stats_data,
                   :test_mode
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       @test_mode = 1
-      attributes.each do |k,v|
+      attributes.each do |k, v|
         send("#{k}=", v)
       end
     end
 
     def payment_url
-      CGI::unescape(response.paymentURL) if response.paymentURL?
+      CGI.unescape(response.paymentURL) if response.paymentURL?
     end
 
     def transaction_id
@@ -38,11 +38,11 @@ module Paynl
     def request
       transaction = {}
       if @callback_url
-        @transaction[:orderExchangeUrl] = @callback_url
+        transaction[:orderExchangeUrl] = @callback_url
       end
 
       if @description
-        @transaction[:description] = @description
+        transaction[:description] = @description
       end
 
       options = {testMode: test_mode}
@@ -77,6 +77,5 @@ module Paynl
         return_url,
         options)
     end
-
   end
 end
