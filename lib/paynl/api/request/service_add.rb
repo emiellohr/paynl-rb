@@ -23,18 +23,15 @@ module Paynl
       end
 
       def error?(response)
-        response.data.status == "FALSE"
+        false
       end
 
       def error!(response)
-        error_response = Paynl::ErrorResponse.new(nil, 'N/A', response.data.message)
-        raise Paynl::Exception, error_response.message and return
+        true
       end
 
       def clean(response)
-        if response.data.arrStatsData?
-          response.data.arrStatsData
-        end
+        response
       end
 
     end
