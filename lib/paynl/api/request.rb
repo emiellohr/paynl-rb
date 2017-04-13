@@ -36,7 +36,7 @@ module Paynl
       def validate!;  raise 'Implement me in a subclass'; end
 
       def can_perform?
-        !Paynl::Config.apiToken.empty?
+        !Paynl::Config.api_token.empty?
       end
 
       def validate!
@@ -65,7 +65,7 @@ module Paynl
         if token_in_querystring
           "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
         else
-          "https://token:#{Paynl::Config.apiToken}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
+          "https://token:#{Paynl::Config.api_token}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
         end
       end
 

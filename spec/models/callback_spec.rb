@@ -5,7 +5,7 @@ describe Paynl::Api::Callback do
   before :each do
     @service_id  = 'SL-123-123'
     @transaction_id = 'trx-123'
-    Paynl::Config.apiToken = '1234token5678'
+    Paynl::Config.api_token = '1234token5678'
   end
 
   describe "transaction status" do
@@ -43,12 +43,26 @@ describe Paynl::Api::Callback do
 
   describe "check remote_ip" do
 
+    before :each do
+      response_body = <<-EOF
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <data>
+          <item>85.158.206.17</item>
+          <item>109.235.79.108</item>
+        </data>
+      EOF
+
+      stub_request(:get, "https://token:123456dummy@rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
+         to_return(:status => 200, :body => response_body, :headers => {})
+    end
+
     it "should be success with valid remote_ip" do
       prepare_and_call_callback('100', '85.158.206.17')
       expect{@callback.validate!}.not_to raise_error
     end
 
     it "should raise exception with invalid remote_ip" do
+      Paynl::Config.initialize('123456dummy')
       prepare_and_call_callback('100', '1.2.3.4')
       expect{@callback.validate!}.to raise_error(Paynl::Exception)
     end

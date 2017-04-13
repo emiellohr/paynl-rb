@@ -25,7 +25,16 @@ Then run `bundle`. If you're not using Bundler, just `gem install paynl-rb`.
 To get started you should initialize the gem by setting your API token.
 
 ```ruby
-Paynl::Config.apiToken = '1234token5678'
+Paynl::Config.initialize('1234token5678')
+```
+
+By default the gem will retrieve a list of valid Pay.nl ip's the check callbacks
+agains to detect callback forgery. You can disable the behaviour by passing false
+as a second parameter.
+
+```ruby
+# Disable retrieval of valid IP's from Paynl servers.
+Paynl::Config.initialize('1234token5678')
 ```
 
 Errors on request made to the Pay.nl Api will be reported as:
