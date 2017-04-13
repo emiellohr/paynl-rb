@@ -14,7 +14,7 @@ https://docs.pay.nl/docpanel/api
 To install Resque, add the gem to your Gemfile:
 
 ```ruby
-gem 'paynl-rb', '0.4.0', git: "git://github.com/emiellohr/paynl-rb.git"
+gem 'paynl-rb', git: "git://github.com/emiellohr/paynl-rb.git"
 ```
 
 Then run `bundle`. If you're not using Bundler, just `gem install paynl-rb`.
@@ -34,7 +34,7 @@ as a second parameter.
 
 ```ruby
 # Disable retrieval of valid IP's from Paynl servers.
-Paynl::Config.initialize('1234token5678')
+Paynl::Config.initialize('1234token5678', false)
 ```
 
 Errors on request made to the Pay.nl Api will be reported as:
