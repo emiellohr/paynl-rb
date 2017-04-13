@@ -34,7 +34,7 @@ as a second parameter.
 
 ```ruby
 # Disable retrieval of valid IP's from Paynl servers.
-Paynl::Config.initialize('1234token5678', false)
+Paynl::Config.initialize('1234token5678', Rails.env.production?)
 ```
 
 Errors on request made to the Pay.nl Api will be reported as:

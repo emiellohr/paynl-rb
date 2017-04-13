@@ -7,7 +7,7 @@ module Paynl
       def initialize(serviceId, options={})
         self.token_in_querystring = true
         @params = {
-          token: Paynl::Config.apiToken,
+          token: Paynl::Config.api_token,
           serviceId: serviceId
         }
         super(options)
