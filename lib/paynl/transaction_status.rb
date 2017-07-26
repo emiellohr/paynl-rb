@@ -5,7 +5,7 @@ module Paynl
     EXPIRED          = %w(-80)
     REFUND           = %w(-81)
     PARTIAL_REFUND   = %w(-82)
-    PENDING          = %w(20 25 40 50 90)
+    PENDING          = %w(20 25 40 50 80 85 90)
     OPEN             = %w(60)
     CONFIRMED        = %w(75 76)
     PARTIAL_PAYMENT  = %w(80)
@@ -35,6 +35,7 @@ module Paynl
     end
 
     def pending?
+      # added 80 & 85 to pending.
       PENDING.include?(@status)
     end
   end
