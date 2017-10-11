@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Paynl::Api::StatisticsSessions do
 
   before :each do
-    Paynl::Config.apiToken = '1234token5678'
+    Paynl::Config.api_token = '1234token5678'
   end
 
   describe "sessions" do

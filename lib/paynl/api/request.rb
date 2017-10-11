@@ -20,7 +20,10 @@ module Paynl
 
         validate!
 
-        http_response = HTTPI.get(base_uri + uri)
+        paynl_request_url = base_uri + uri
+        Paynl.logger.info "Request -- " + paynl_request_url
+
+        http_response = HTTPI.get(paynl_request_url)
         parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
 

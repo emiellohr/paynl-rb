@@ -39,7 +39,24 @@ require 'paynl/payment'
 
 module Paynl
   class << self
-    def test
+    attr_writer :logger
+
+    def logger
+      if Paynl::Config.debug
+        @logger ||= Logger.new($stdout).tap do |log|
+          log.progname = self.name
+        end
+      else
+        @logger = NullLoger.new
+      end
     end
+  end
+end
+
+class NullLoger < Logger
+  def initialize(*args)
+  end
+
+  def add(*args, &block)
   end
 end

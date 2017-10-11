@@ -7,7 +7,7 @@ describe Paynl::Api::RefundTransaction do
   describe "transaction" do
 
     it "should return a refundId for succesfull refund" do
-      Paynl::Config.apiToken = '1234token5678'
+      Paynl::Config.api_token = '1234token5678'
       stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v2/Refund/transaction/xml/?amount=10&description=Test&processDate=2025-12-31&serviceId=SL-123-123&transactionId=my_transaction_id").
         to_return(:status => 200, :body => Paynl::Api::RefundTransaction::CALLBACK_XML, :headers => {})
       result = subject.perform
@@ -15,7 +15,7 @@ describe Paynl::Api::RefundTransaction do
     end
 
     it "should raise exception when called with invalid arguments" do
-      Paynl::Config.apiToken = '1234token5678'
+      Paynl::Config.api_token = '1234token5678'
       stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v2/Refund/transaction/xml/?amount=10&description=Test&processDate=2025-12-31&serviceId=SL-123-123&transactionId=my_transaction_id").
         to_return(:status => 200, :body => Paynl::Api::RefundTransaction::ERROR_CALLBACK_XML, :headers => {})
       expect { subject.perform }.to raise_error(Paynl::Exception, "An error occurred: 404. Amount must be a positive value")
