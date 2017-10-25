@@ -21,7 +21,7 @@ module Paynl
         validate!
 
         paynl_request_url = base_uri + uri
-        Paynl.logger.info "Request -- " + paynl_request_url
+        Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
         http_response = HTTPI.get(paynl_request_url)
         parsed_response = Crack::XML.parse(http_response.body)
@@ -40,6 +40,10 @@ module Paynl
 
       def can_perform?
         !Paynl::Config.api_token.empty?
+      end
+
+      def filtered(string)
+        string.gsub(/(token:|token=)([0-9a-z]+)(\&|\@|)/) { |s| "#{$1}*******************#{$3}" }
       end
 
       def validate!
