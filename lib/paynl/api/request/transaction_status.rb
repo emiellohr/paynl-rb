@@ -12,6 +12,10 @@ module Paynl
 
       private
 
+      def api_version
+        'v12'
+      end
+
       def method
         'status'
       end
