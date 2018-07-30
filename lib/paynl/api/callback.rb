@@ -2,8 +2,7 @@ module Paynl
   module Api
     class Callback
       attr_accessor :service_id,
-                    :transaction_id,
-                    :entrance_code
+                    :transaction_id
 
       def initialize(attributes = {}, remote_ip = nil)
         attributes.each do |k, v|
@@ -68,10 +67,7 @@ module Paynl
       end
 
       def request
-        @request ||= Paynl::Api::TransactionInfo.new(
-          @transaction_id,
-          entranceCode: @entrance_code
-        )
+        @request ||= Paynl::Api::TransactionStatus.new(@transaction_id)
       end
     end
   end
