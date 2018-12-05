@@ -1,4 +1,4 @@
-require 'httpi'
+require 'typhoeus'
 require 'hashie'
 require 'cgi'
 require 'crack/xml'

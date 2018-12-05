@@ -23,7 +23,12 @@ module Paynl
         paynl_request_url = base_uri + uri
         Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
-        http_response = HTTPI.get(paynl_request_url)
+        if token_in_querystring
+          http_response = Typhoeus.get(paynl_request_url)
+        else
+          http_response = Typhoeus::Request.get(paynl_request_url, userpwd: "token:#{Paynl::Config.api_token}")
+        end
+
         parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
 
@@ -69,11 +74,7 @@ module Paynl
       end
 
       def base_uri
-        if token_in_querystring
-          "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
-        else
-          "https://token:#{Paynl::Config.api_token}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
-        end
+        "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end

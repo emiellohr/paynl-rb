@@ -52,7 +52,7 @@ describe Paynl::Api::Callback do
         </data>
       EOF
 
-      stub_request(:get, "https://token:123456dummy@rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
+      stub_request(:get, "https://rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
          to_return(:status => 200, :body => response_body, :headers => {})
     end
 
@@ -70,7 +70,14 @@ describe Paynl::Api::Callback do
   end
 
   def prepare_and_call_callback(state,remote_ip=nil)
-    stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v6/Transaction/info/xml/?transactionId=trx-123").
+    # stub_request(:get, "https://rest-api.pay.nl/v6/Transaction/info/xml/?transactionId=trx-123").
+    stub_request(:get, "https://rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=trx-123").
+      with(
+        headers: {
+        'Authorization'=>'Basic dG9rZW46MTIzNHRva2VuNTY3OA==',
+        'Expect'=>'',
+        'User-Agent'=>'Typhoeus - https://github.com/typhoeus/typhoeus'
+        }).
       to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
     params = {
       service_id: @service_id,
