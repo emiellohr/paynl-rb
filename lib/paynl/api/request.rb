@@ -70,7 +70,7 @@ module Paynl
 
       def error!(response)
         error_response = Paynl::ErrorResponse.new(response)
-        raise Paynl::Exception, error_response.message and return
+        raise Paynl::Exception.new(error_response.message, error_response.code) and return
       end
 
       def base_uri
