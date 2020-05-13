@@ -22,7 +22,7 @@ module Paynl
     end
 
     def payment_url
-      CGI.unescape(response.paymentURL) if response.paymentURL?
+      CGI.unescape(response.paymentURL)
     end
 
     def transaction_id
