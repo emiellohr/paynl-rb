@@ -26,7 +26,7 @@ module Paynl
     end
 
     def transaction_id
-      response.transactionId if response.transactionId?
+      response&.transactionId
     end
 
     private
