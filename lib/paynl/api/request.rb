@@ -24,10 +24,16 @@ module Paynl
         Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
         if token_in_querystring
-          http_response = Typhoeus.get(paynl_request_url)
+          request = Typhoeus::Request.new(paynl_request_url)
         else
-          http_response = Typhoeus::Request.get(paynl_request_url, userpwd: "token:#{Paynl::Config.api_token}")
+          request = Typhoeus::Request.new(paynl_request_url, userpwd: "token:#{Paynl::Config.api_token}")
         end
+
+        hydra = Typhoeus::Hydra.new
+        hydra.queue(request)
+        hydra.run
+
+        http_response = request.response
 
         parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
@@ -35,6 +41,7 @@ module Paynl
         error!(response) if error?(response)
 
         clean(response)
+        # Hashie::Mash.new({paymentURL: "abc", transactionId: "123"})
       end
 
       private

@@ -26,7 +26,7 @@ module Paynl
     end
 
     def transaction_id
-      response&.transactionId
+      response.transactionId
     end
 
     private
@@ -70,7 +70,7 @@ module Paynl
         options[:saleData] = @sale_data
       end
 
-      @request ||= Paynl::Api::TransactionStart.new(
+      Paynl::Api::TransactionStart.new(
         service_id,
         amount,
         ip_address,
