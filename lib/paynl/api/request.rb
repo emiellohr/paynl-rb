@@ -24,18 +24,14 @@ module Paynl
         Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
         if token_in_querystring
-          request = Typhoeus::Request.new(paynl_request_url)
+          easy = Ethon::Easy.new(url: "https://#{paynl_request_url}")
         else
-          request = Typhoeus::Request.new(paynl_request_url, userpwd: "token:#{Paynl::Config.api_token}")
+          easy = Ethon::Easy.new(url: "https://token:#{Paynl::Config.api_token}@#{paynl_request_url}")
         end
 
-        hydra = Typhoeus::Hydra.new
-        hydra.queue(request)
-        hydra.run
+        easy.perform
 
-        http_response = request.response
-
-        parsed_response = Crack::XML.parse(http_response.body)
+        parsed_response = Crack::XML.parse(easy.response_body)
         response = Hashie::Mash.new(parsed_response)
 
         error!(response) if error?(response)
@@ -81,7 +77,7 @@ module Paynl
       end
 
       def base_uri
-        "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
+        "rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end

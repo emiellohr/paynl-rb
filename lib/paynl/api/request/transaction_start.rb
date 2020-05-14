@@ -6,9 +6,9 @@ module Paynl
         :enduser, :saleData, :testMode, :transferType, :transferValue]
 
       def initialize(serviceId, amount, ipAddress, finishUrl, options={})
-        self.token_in_querystring = true
+        # self.token_in_querystring = true
         @params = {
-          token: Paynl::Config.api_token,
+          # token: Paynl::Config.api_token,
           serviceId: serviceId,
           amount: amount,
           ipAddress: ipAddress,

@@ -5,9 +5,9 @@ module Paynl
       OPTIONAL_PARAMETERS = [:paymentMethodId]
 
       def initialize(serviceId, options={})
-        self.token_in_querystring = true
+        # self.token_in_querystring = true
         @params = {
-          token: Paynl::Config.api_token,
+          # token: Paynl::Config.api_token,
           serviceId: serviceId
         }
         super(options)
