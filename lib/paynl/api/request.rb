@@ -2,7 +2,6 @@ module Paynl
   module Api
     class Request
       attr_reader :params
-      attr_accessor :token_in_querystring
 
       API_OUTPUT = 'xml'
       MANDATORY_PARAMETERS = []
@@ -23,12 +22,7 @@ module Paynl
         paynl_request_url = base_uri + uri
         Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
-        if token_in_querystring
-          easy = Ethon::Easy.new(url: "https://#{paynl_request_url}")
-        else
-          easy = Ethon::Easy.new(url: "https://token:#{Paynl::Config.api_token}@#{paynl_request_url}")
-        end
-
+        easy = Ethon::Easy.new(url: paynl_request_url)
         easy.perform
 
         parsed_response = Crack::XML.parse(easy.response_body)
@@ -77,7 +71,7 @@ module Paynl
       end
 
       def base_uri
-        "rest-api.pay.nl/#{api_version}/#{api_namespace}/"
+        "https://token:#{Paynl::Config.api_token}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end
