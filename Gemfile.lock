@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paynl-rb (0.6.5)
+    paynl-rb (0.6.7)
       activesupport
       crack
       hashie
@@ -40,7 +40,7 @@ GEM
       byebug (~> 10.0)
       pry (~> 0.10)
     public_suffix (3.0.3)
-    rake (12.3.1)
+    rake (13.0.1)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
