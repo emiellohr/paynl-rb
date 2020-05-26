@@ -22,10 +22,8 @@ module Paynl
         paynl_request_url = base_uri + uri
         Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
-        easy = Ethon::Easy.new(url: paynl_request_url)
-        easy.perform
-
-        parsed_response = Crack::XML.parse(easy.response_body)
+        http_response = HTTPI.get(paynl_request_url)
+        parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
 
         error!(response) if error?(response)
