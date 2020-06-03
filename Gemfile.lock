@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paynl-rb (0.6.8)
+    paynl-rb (0.6.9)
       activesupport
       crack
       hashie
