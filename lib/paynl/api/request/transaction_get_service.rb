@@ -15,6 +15,10 @@ module Paynl
 
       private
 
+      def api_version
+        'v16'
+      end
+
       def method
         'getService'
       end
