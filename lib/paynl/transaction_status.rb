@@ -12,8 +12,7 @@ module Paynl
     PARTIAL_PAYMENT  = %w(80)
     VERIFY           = %w(85)
     PAID             = %w(100)
-    CANCEL           = %w(-60 -90)
-    DENIED           = %w(-63)
+    CANCEL           = %w(-60 -63 -90)
 
     def initialize(status)
       @status = status.to_s
