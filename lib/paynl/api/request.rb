@@ -20,9 +20,14 @@ module Paynl
         validate!
 
         paynl_request_url = base_uri + uri
-        Paynl.logger.info "Request -- " + filtered(paynl_request_url)
 
-        http_response = HTTPI.get(paynl_request_url)
+        request = HTTPI::Request.new
+        request.url = paynl_request_url
+        request.auth.basic("token", Paynl::Config.api_token)
+
+        Paynl.logger.info "Request -- " + paynl_request_url
+
+        http_response = HTTPI.get(request, :httpclient)
         parsed_response = Crack::XML.parse(http_response.body)
         response = Hashie::Mash.new(parsed_response)
 
@@ -69,7 +74,7 @@ module Paynl
       end
 
       def base_uri
-        "https://token:#{Paynl::Config.api_token}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
+        "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end

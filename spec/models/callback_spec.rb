@@ -52,8 +52,13 @@ describe Paynl::Api::Callback do
         </data>
       EOF
 
-      stub_request(:get, "https://token:123456dummy@rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
-        to_return(:status => 200, :body => response_body, :headers => {})
+     stub_request(:get, "https://rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
+       with(
+         headers: {
+        'Accept'=>'*/*',
+        'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
+         }).
+       to_return(status: 200, body: response_body, headers: {})
     end
 
     it "should be success with valid remote_ip" do
@@ -70,14 +75,14 @@ describe Paynl::Api::Callback do
   end
 
   def prepare_and_call_callback(state,remote_ip=nil)
-    # stub_request(:get, "https://rest-api.pay.nl/v6/Transaction/info/xml/?transactionId=trx-123").
-    stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=trx-123").
-      with(
+   stub_request(:get, "https://rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=trx-123").
+     with(
        headers: {
       'Accept'=>'*/*',
       'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
        }).
-      to_return(:status => 200, :body => Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), :headers => {})
+     to_return(status: 200, body: Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), headers: {})
+
     params = {
       service_id: @service_id,
       transaction_id: @transaction_id }

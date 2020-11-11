@@ -8,16 +8,30 @@ describe Paynl::Api::DirectDebit do
 
     it "should return a mandateId for succesfull directdebit" do
       Paynl::Config.api_token = '1234token5678'
-      stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
-        to_return(:status => 200, :body => Paynl::Api::DirectDebitDebitAdd::CALLBACK_XML, :headers => {})
+
+      stub_request(:get, "https://rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
+       with(
+         headers: {
+        'Accept'=>'*/*',
+        'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
+         }).
+       to_return(status: 200, body: Paynl::Api::DirectDebitDebitAdd::CALLBACK_XML, headers: {})
+
       response = subject.perform
       expect(response.request.result).to eql('12345')
     end
 
     it "should raise exception when called with invalid arguments" do
       Paynl::Config.api_token = '1234token5678'
-      stub_request(:get, "https://token:1234token5678@rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
-        to_return(:status => 200, :body => Paynl::Api::DirectDebitDebitAdd::ERROR_CALLBACK_XML, :headers => {})
+
+      stub_request(:get, "https://rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
+       with(
+         headers: {
+        'Accept'=>'*/*',
+        'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
+         }).
+       to_return(status: 200, body: Paynl::Api::DirectDebitDebitAdd::ERROR_CALLBACK_XML, headers: {})
+
       expect { subject.perform }.to raise_error(Paynl::Exception, "An error occurred: 404. Amount must be a positive value")
     end
 
