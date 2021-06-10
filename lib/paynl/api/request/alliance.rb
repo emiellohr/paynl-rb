@@ -3,7 +3,7 @@ module Paynl
     class Alliance < Request
 
       def api_version
-        'v4'
+        'v6'
       end
 
       def api_namespace
