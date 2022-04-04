@@ -11,7 +11,7 @@ describe Paynl::Api::AllianceAddInvoice do
   describe "add invoice" do
 
     it "should raise exception Invalid ID merchantId" do
-     stub_request(:get, "https://rest-api.pay.nl/v4/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123").
+     stub_request(:get, "https://rest-api.pay.nl/v6/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123").
        with(
          headers: {
         'Accept'=>'*/*',
@@ -32,7 +32,7 @@ describe Paynl::Api::AllianceAddInvoice do
     end
 
     it "should return a referenceId on successfull calls" do
-       stub_request(:get, "https://rest-api.pay.nl/v4/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123").
+       stub_request(:get, "https://rest-api.pay.nl/v6/Alliance/addInvoice/xml/?amount=1000&description=Dit%20is%20een%20test&invoiceId=Invoice123&invoiceUrl=https://www.avayo.nl/invoice&merchantId=M-0000-0000&serviceId=SL-123-123").
          with(
            headers: {
           'Accept'=>'*/*',

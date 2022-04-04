@@ -28,7 +28,7 @@ module Paynl
         Paynl.logger.info "Request -- " + paynl_request_url
 
         http_response = HTTPI.get(request, :httpclient)
-        if response.code.between?(200, 299)
+        if http_response.code.between?(200, 299)
           parsed_response = Crack::XML.parse(http_response.body)
           response = Hashie::Mash.new(parsed_response)
 
@@ -74,7 +74,8 @@ module Paynl
       end
 
       def error!(response)
-        raise Paynl::ErrorResponse.new(response)
+        error_response = Paynl::ErrorResponse.new(response)
+        raise Paynl::Exception.new(error_response.message, error_response.code) and return
       end
 
       def base_uri
