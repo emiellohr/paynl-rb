@@ -9,11 +9,11 @@ describe Paynl::Api::StatisticsSessions do
   describe "sessions" do
 
     it "should raise exception when called with invalid filter field" do
-      stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
+      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
         with(
           headers: {
           'Accept'=>'*/*',
-          'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
+          # 'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
           }).
         to_return(status: 200, body: Paynl::Api::StatisticsSessions::ERROR_CALLBACK_XML, headers: {})
 
@@ -26,11 +26,11 @@ describe Paynl::Api::StatisticsSessions do
     end
 
     it "should return statistics on successfull calls" do
-      stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
+      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
         with(
           headers: {
           'Accept'=>'*/*',
-          'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
+          # 'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
           }).
         to_return(status: 200, body: Paynl::Api::StatisticsSessions::CALLBACK_XML, headers: {})
 

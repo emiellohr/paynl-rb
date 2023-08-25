@@ -52,11 +52,11 @@ describe Paynl::Api::Callback do
         </data>
       EOF
 
-     stub_request(:get, "https://rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
+     stub_request(:get, "https://1234token5678@rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
        with(
          headers: {
         'Accept'=>'*/*',
-        'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
+        # 'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
          }).
        to_return(status: 200, body: response_body, headers: {})
     end
@@ -67,7 +67,10 @@ describe Paynl::Api::Callback do
     end
 
     it "should raise exception with invalid remote_ip" do
+      stub_request(:get, "https://123456dummy@rest-api.pay.nl/v1/Validate/getPayServerIps/xml/").
+         to_return(status: 200, body: "", headers: {})
       Paynl::Config.initialize('123456dummy')
+      Paynl::Config.valid_ips = ['5.6.7.8']
       prepare_and_call_callback('100', '1.2.3.4')
       expect{@callback.validate!}.to raise_error(Paynl::Exception)
     end
@@ -75,12 +78,7 @@ describe Paynl::Api::Callback do
   end
 
   def prepare_and_call_callback(state,remote_ip=nil)
-   stub_request(:get, "https://rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=trx-123").
-     with(
-       headers: {
-      'Accept'=>'*/*',
-      'User-Agent'=>'HTTPClient/1.0 (2.8.3, ruby 2.5.0 (2017-12-25))'
-       }).
+   stub_request(:get, "https://#{Paynl::Config.api_token}@rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=trx-123").
      to_return(status: 200, body: Paynl::Api::Callback::CALLBACK_XML.gsub('{{STATE_RESULT}}',state), headers: {})
 
     params = {

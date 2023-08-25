@@ -23,7 +23,6 @@ module Paynl
 
         request = HTTPI::Request.new
         request.url = paynl_request_url
-        request.auth.basic("token", Paynl::Config.api_token)
 
         Paynl.logger.info "Request -- " + paynl_request_url
 
@@ -47,7 +46,7 @@ module Paynl
       def validate!;  raise 'Implement me in a subclass'; end
 
       def can_perform?
-        !Paynl::Config.api_token.empty?
+        Paynl::Config.api_token && !Paynl::Config.api_token.empty?
       end
 
       def filtered(string)
@@ -79,7 +78,7 @@ module Paynl
       end
 
       def base_uri
-        "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
+        "https://#{Paynl::Config.api_token}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end
