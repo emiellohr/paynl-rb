@@ -3,13 +3,14 @@ require 'spec_helper'
 describe Paynl::Api::StatisticsSessions do
 
   before :each do
-    Paynl::Config.api_token = '1234token5678'
+    Paynl::Config.username = '1234'
+    Paynl::Config.password = 'token5678'
   end
 
   describe "sessions" do
 
     it "should raise exception when called with invalid filter field" do
-      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
+      stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
         with(
           headers: {
           'Accept'=>'*/*',
@@ -26,7 +27,7 @@ describe Paynl::Api::StatisticsSessions do
     end
 
     it "should return statistics on successfull calls" do
-      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
+      stub_request(:get, "https://rest-api.pay.nl/v5/Statistics/sessions/xml/?endDate=2015-12-31&startDate=2015-01-01").
         with(
           headers: {
           'Accept'=>'*/*',

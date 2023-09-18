@@ -19,20 +19,16 @@ module Paynl
 
         validate!
 
-        paynl_request_url = base_uri + uri
-
-        request = HTTPI::Request.new
-        request.url = paynl_request_url
-
-        Paynl.logger.info "Request -- " + paynl_request_url
-
-        http_response = HTTPI.get(request, :httpclient)
-        if http_response.code.between?(200, 299)
+        api_url = URI.parse(base_uri + uri)
+        http = Net::HTTP.new(api_url.host, api_url.port)
+        http.use_ssl = (api_url.scheme == 'https')
+        request = Net::HTTP::Get.new(api_url.request_uri)
+        request.basic_auth( Paynl::Config.username, Paynl::Config.password)
+        http_response = http.request(request)
+        if http_response.code == '200'
           parsed_response = Crack::XML.parse(http_response.body)
           response = Hashie::Mash.new(parsed_response)
-
           error!(response) if error?(response)
-
           clean(response)
         else
           raise Paynl::Exception, "http error: status code:#{response.code}, url:#{request.url}"
@@ -46,7 +42,7 @@ module Paynl
       def validate!;  raise 'Implement me in a subclass'; end
 
       def can_perform?
-        Paynl::Config.api_token && !Paynl::Config.api_token.empty?
+        Paynl::Config.username.present? && Paynl::Config.password.present?
       end
 
       def filtered(string)
@@ -78,7 +74,7 @@ module Paynl
       end
 
       def base_uri
-        "https://#{Paynl::Config.api_token}@rest-api.pay.nl/#{api_version}/#{api_namespace}/"
+        "https://rest-api.pay.nl/#{api_version}/#{api_namespace}/"
       end
 
     end

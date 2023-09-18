@@ -7,9 +7,10 @@ describe Paynl::Api::DirectDebit do
   describe "DebitAdd" do
 
     it "should return a mandateId for succesfull directdebit" do
-      Paynl::Config.api_token = '1234token5678'
+      Paynl::Config.username = '1234'
+      Paynl::Config.password = 'token5678'
 
-      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
+      stub_request(:get, "https://rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
        with(
          headers: {
         'Accept'=>'*/*',
@@ -22,9 +23,10 @@ describe Paynl::Api::DirectDebit do
     end
 
     it "should raise exception when called with invalid arguments" do
-      Paynl::Config.api_token = '1234token5678'
+      Paynl::Config.username = '1234'
+      Paynl::Config.password = 'token5678'
 
-      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
+      stub_request(:get, "https://rest-api.pay.nl/v3/DirectDebit/debitAdd/xml/?amount=123&bankaccountHolder=Emiel%20Lohr&bankaccountNumber=NL91ABNA0417164300&serviceId=SL-123-123").
        with(
          headers: {
         'Accept'=>'*/*',

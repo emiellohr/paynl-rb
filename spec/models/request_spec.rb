@@ -5,7 +5,8 @@ describe Paynl::Api::Request do
   describe "setup" do
 
     it "Raises an exception when the configuration is invalid" do
-      Paynl::Config.api_token = nil
+      Paynl::Config.username = nil
+      Paynl::Config.password = nil
       expect {
         Paynl::Api::Request.new.perform
       }.to raise_error(Paynl::Exception, "No api token configured.")
@@ -15,16 +16,19 @@ describe Paynl::Api::Request do
 
   describe "general" do
     before :each do
-      Paynl::Config.api_token = '1234token5678'
+      Paynl::Config.username = '1234'
+      Paynl::Config.password = 'token5678'
     end
 
     it "should raise exception when called with invalid filter field" do
-      expect(Paynl::Config.api_token).to eql('1234token5678')
+      expect(Paynl::Config.username).to eql('1234')
+      expect(Paynl::Config.password).to eql('token5678')
 
-      stub_request(:get, "https://1234token5678@rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=pay_id").
+      stub_request(:get, "https://rest-api.pay.nl/v12/Transaction/status/xml/?transactionId=pay_id").
          with(
            headers: {
           'Accept'=>'*/*',
+          'Authorization'=>'Basic MTIzNDp0b2tlbjU2Nzg=',
            }).
          to_return(status: 200, body: Paynl::Api::AllianceAddInvoice::SUCCESS_XML, headers: {})
 
