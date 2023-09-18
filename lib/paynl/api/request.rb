@@ -31,7 +31,7 @@ module Paynl
           error!(response) if error?(response)
           clean(response)
         else
-          raise Paynl::Exception, "http error: status code:#{response.code}, url:#{request.url}"
+          raise Paynl::Exception, "http error: status code:#{http_response.code}, url:#{http_response.url}"
         end
       end
 
