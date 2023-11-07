@@ -19,7 +19,7 @@ module Paynl
 
         validate!
 
-        api_url = URI.parse(base_uri + uri)
+        api_url = URI.parse(base_uri)
         http = Net::HTTP.new(api_url.host, api_url.port)
         http.use_ssl = (api_url.scheme == 'https')
         request = Net::HTTP::Get.new(api_url.request_uri)
@@ -74,7 +74,7 @@ module Paynl
       end
 
       def base_uri
-        "https://rest-api.achterelkebetaling.nl/#{api_version}/#{api_namespace}/"
+        "https://rest-api.achterelkebetaling.nl/#{api_namespace}/#{uri}/#{api_version}/"
       end
 
     end
