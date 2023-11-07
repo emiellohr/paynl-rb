@@ -3,7 +3,7 @@ module Paynl
     class Transaction < Request
 
       def api_version
-        'v7'
+        'v12'
       end
 
       def api_namespace
