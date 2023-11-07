@@ -74,7 +74,7 @@ module Paynl
       end
 
       def base_uri
-        "https://rest-api.achterelkebetaling.nl/#{api_version}/#{api_namespace}/"
+        "https://rest.achterelkebetaling.nl/#{api_version}/#{api_namespace}/"
       end
 
     end
