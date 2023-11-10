@@ -7,8 +7,7 @@ describe Paynl::Api::RefundTransaction do
   describe "transaction" do
 
     it "should return a refundId for succesfull refund" do
-      Paynl::Config.username = '1234'
-      Paynl::Config.password = 'token5678'
+      Paynl::Config.initialize('1234', 'token5678', core: 'pay.nl')
 
       stub_request(:get, "https://rest-api.pay.nl/v2/Refund/transaction/xml/?amount=10&description=Test&processDate=2025-12-31&serviceId=SL-123-123&transactionId=my_transaction_id").
        with(
