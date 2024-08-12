@@ -4,6 +4,9 @@ module Paynl
     PAYMENT_METHOD_UNAVAILABLE = 0
     MERCHANT_BALANCE_IS_TOO_LOW = 101
     INVALID_ID_TRANSACTION_ID = 404
+    TERMINAL_NOT_FOUND = 9110
+
+    attr_accessor :id
 
     def initialize(msg, id=nil)
       @id = id
@@ -18,8 +21,8 @@ module Paynl
       @id == MERCHANT_BALANCE_IS_TOO_LOW
     end
 
-    def merchant_balance_too_low?
-      @id == MERCHANT_BALANCE_IS_TOO_LOW
+    def terminal_not_found?
+      @id == TERMINAL_NOT_FOUND
     end
 
     def invalid_transaction_id?
