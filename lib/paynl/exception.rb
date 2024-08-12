@@ -5,6 +5,7 @@ module Paynl
     MERCHANT_BALANCE_IS_TOO_LOW = 101
     INVALID_ID_TRANSACTION_ID = 404
     TERMINAL_NOT_FOUND = 9110
+    TERMINAL_IN_USE = 9206
 
     attr_accessor :id
 
@@ -23,6 +24,10 @@ module Paynl
 
     def terminal_not_found?
       @id == TERMINAL_NOT_FOUND
+    end
+
+    def terminal_in_use?
+      @id == TERMINAL_IN_USE
     end
 
     def invalid_transaction_id?
